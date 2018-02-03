@@ -48,9 +48,7 @@ cc.Class({
     },
 
     gotoContacts: function () {
-        if (this.curPanel !== PanelType.Contacts) {
-            this.contactsUI.show();
-        }
+        cc.director.loadScene("contacts");
     },
 
     /*gotoHome: function () {
