@@ -717,7 +717,9 @@
     "userChatDialogBoxPrefab": {
       "__uuid__": "96bbc77a-d174-4f97-9c72-84dd3d4963a2"
     },
-    "customerChatDialogBoxPrefab": null,
+    "customerChatDialogBoxPrefab": {
+      "__uuid__": "06af8a49-c36d-4d24-a7e6-6550fd3a36bc"
+    },
     "scrollView": {
       "__id__": 8
     },
