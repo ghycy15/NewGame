@@ -523,7 +523,7 @@
     "profilePic": {
       "__id__": 13
     },
-    "maxChatBoxWidth": 200
+    "maxChatBoxWidth": 350
   },
   {
     "__type__": "cc.Widget",
