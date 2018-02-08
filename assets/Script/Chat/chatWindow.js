@@ -27,23 +27,45 @@ cc.Class({
         },
         totalCount: 0
     },
+
+    addConversation: function (type, content, userData, scrollToBottom=true) {
+        let chatSlot = null;
+        if (type === "USER") {
+            chatSlot = cc.instantiate(this.userChatDialogBoxPrefab);
+        } else if (type === "CUSTOMER") {
+            chatSlot = cc.instantiate(this.customerChatDialogBoxPrefab);
+        }
+        if (!!chatSlot) {
+            this.scrollView.content.addChild(chatSlot);
+            chatSlot.getComponent('chatDialogue').init(content, userData);
+        }
+        if (!!scrollToBottom) {
+            this.scrollView.scrollToBottom(0.1);
+        }
+    },
  
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
 
     start () {
-        for (let i = 0; i < this.totalCount; i++) {
-            let chatSlot1 = cc.instantiate(this.userChatDialogBoxPrefab);
-            let chatSlot2 = cc.instantiate(this.customerChatDialogBoxPrefab);
-            this.scrollView.content.addChild(chatSlot1);
-            
-            this.scrollView.content.addChild(chatSlot2);
-            chatSlot1.getComponent('chatDialogue').init(tmp[i%5], {});
-            chatSlot2.getComponent('chatDialogue').init(tmp[i%5], {});
-            
-        }
+        //for (let i = 0; i < this.totalCount; i++) {
+        //    this.addConversation("USER", tmp[i%5], {});
+        //    this.addConversation("CUSTOMER", tmp[i%5], {});
+        //}
+        this.schedule(function() {
+            // Here `this` is referring to the component
+            this.addConversation("USER", tmp[i%5], {});
+        }, 2);
+        this.schedule(function() {
+            // Here `this` is referring to the component
+            this.addConversation("CUSTOMER", tmp[i%5], {});
+        }, 3);
+
     },
 
-    // update (dt) {},
+    update (dt) {
+    //cc.DelayTime(1);
+      //  this.addConversation("CUSTOMER", tmp[i%5], {});
+    },
 });
