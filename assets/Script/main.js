@@ -1,4 +1,6 @@
 const contactsUI = require('contactsUI');
+const shopUI = require('shopUI');
+const Global = require('Global');
 
 const PanelType = cc.Enum({
     Home: -1,
@@ -25,6 +27,8 @@ cc.Class({
     onLoad: function () {
         //this.label.string = this.text;
         this.curPanel = PanelType.Home;
+        //this.DataBus.init('init');
+        Global.content = 'init';
     },
 
     // called every frame
@@ -50,6 +54,10 @@ cc.Class({
     gotoContacts: function () {
         cc.director.loadScene("contacts");
     },
+
+    gotoShop: function () {
+        cc.director.loadScene("shop");
+    }
 
     /*gotoHome: function () {
         if (this.curPanel === PanelType.Shop) {

@@ -1,3 +1,5 @@
+const Global = require('Global');
+
 cc.Class({
     extends: cc.Component,
 
@@ -10,32 +12,37 @@ cc.Class({
             default: null,
             type: cc.ScrollView
         },
+        iconSF: cc.SpriteFrame,
         totalCount: 0
     },
 
-    init: function (/*home*/) {
-        this.itemSlots = [];
-        this.home = home;
-        for (let i = 0; i < this.totalCount; ++i) {
-            let itemSlot = this.addHeroSlot();
-            this.itemSlots.push(itemSlot);
-        }
-    },
+
 
     addItemSlot: function () {
         let itemSlot = cc.instantiate(this.slotPrefab);
         this.scrollView.content.addChild(itemSlot);
+        console.log(itemSlot);
+        itemSlot.getComponent('ItemTemplate').init({
+            id: i,
+            name: 'abc',
+            price: '200',
+            icon: this.iconSF,
+        });
         return itemSlot;
     },
 
-    show: function () {
-        //this.node.active = true;
-        //this.node.emit('fade-in');
-        //this.home.toggleHomeBtns(false);
+    start () {
+        console.log(Global.content);
+        this.itemSlots = [];
+        for (let i = 0; i < this.totalCount; ++i) {
+            let itemSlot = this.addItemSlot();
+            this.itemSlots.push(itemSlot);
+        }
+        //console.log(this.itemSlots);
     },
 
-    hide: function () {
-        //this.node.emit('fade-out');
-        //this.home.toggleHomeBtns(true);
+    update (dt) {
+    //cc.DelayTime(1);
+      //  this.addConversation("CUSTOMER", tmp[i%5], {});
     },
 });
