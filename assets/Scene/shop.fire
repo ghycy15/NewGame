@@ -92,8 +92,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 640,
-      "height": 960
+      "width": 750,
+      "height": 1334
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -101,8 +101,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 320,
-      "y": 480
+      "x": 375,
+      "y": 667
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -159,8 +159,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 640,
-      "height": 864
+      "width": 750,
+      "height": 1200.6
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -169,7 +169,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -48
+      "y": -66.70000000000005
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -224,7 +224,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 12,
-      "height": 864
+      "height": 1200.6
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -232,7 +232,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 320,
+      "x": 375,
       "y": 0
     },
     "_skewX": 0,
@@ -413,8 +413,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 640,
-      "height": 864
+      "width": 750,
+      "height": 1200.6
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -423,7 +423,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 432
+      "y": 600.3
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -474,8 +474,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 640,
-      "height": 864
+      "width": 750,
+      "height": 1200.6
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -578,8 +578,8 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 640,
-      "height": 864
+      "width": 750,
+      "height": 1200.6
     },
     "_resize": 1,
     "_N$layoutType": 3,
@@ -742,8 +742,8 @@
     "_enabled": true,
     "_designResolution": {
       "__type__": "cc.Size",
-      "width": 640,
-      "height": 960
+      "width": 750,
+      "height": 1334
     },
     "_fitWidth": false,
     "_fitHeight": true
@@ -792,6 +792,9 @@
       },
       {
         "__id__": 29
+      },
+      {
+        "__id__": 31
       }
     ],
     "_prefab": null,
@@ -822,7 +825,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 99,
-      "y": 904
+      "y": 1284
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -921,5 +924,31 @@
     "component": "shopUI",
     "handler": "gotoHome",
     "customEventData": ""
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 27
+    },
+    "_enabled": true,
+    "isAlignOnce": true,
+    "_target": null,
+    "_alignFlags": 1,
+    "_left": 0,
+    "_right": 0,
+    "_top": 20,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 0,
+    "_originalHeight": 0
   }
 ]
