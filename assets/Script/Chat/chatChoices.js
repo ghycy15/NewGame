@@ -46,10 +46,10 @@ cc.Class({
             default: null,
             type: cc.Layout
         },
-        
-        chatWindow: {
-            default: null,
-            type: cc.ScrollView
+
+        btnSpacing: {
+            default: 10,
+            type: cc.Integer
         }
 
     },
@@ -59,34 +59,34 @@ cc.Class({
         // this.node.on('say-hello', function (event) {
         //     console.log(event.detail.msg);
         // });
-        this.addChoice("aaaaaaaaa");
-        this.addChoice("bbbbbbbbb");
-        this.addChoice("Ccccccc");
-        this.addChoice("dd");
-
     },
     
     start () {
         
     },
 
-    addChoice: function (content) {
-        let choice = null;
-        choice = cc.instantiate(this.choicePrefab);
-        this.choicesContainer.node.addChild(choice);
-        choice.getComponent('chatChoiceBtn').init(content);
+    _addChoice: function (choice) {
+        let choiceNode = null;
+        choiceNode = cc.instantiate(this.choicePrefab);
+        this.choicesContainer.node.addChild(choiceNode);
+        choiceNode.getComponent('chatChoiceBtn').init(choice);
+        return choiceNode;
     },
 
-    addChoices: function () {
-
-    },
-
-    hide : function () {
-
-    },
-
-    show : function () {
-
+    addChoices: function (choices) {
+        // cc.log(this.node.width);
+        var btnWidth = ((this.node.width - ((choices.length + 1) * this.btnSpacing)) / choices.length) * 0.8;
+        var btnHeight = this.node.height - 2 * this.btnSpacing;
+        this.choicesContainer.getComponent(cc.Layout).spacingX = this.btnSpacing;
+        var self = this;
+        choices.forEach(function(choice) {
+            var choiceNode = self._addChoice(choice);
+            if (!!choiceNode) {
+                choiceNode.getComponent(cc.Widget).top += self.btnSpacing;
+                choiceNode.width = btnWidth;
+                choiceNode.height = btnHeight;
+            }
+        });
     }
 
     // update (dt) {},

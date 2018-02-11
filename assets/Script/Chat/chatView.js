@@ -30,7 +30,14 @@ cc.Class({
         chatWindow: {
             default: null,
             type: cc.Node
-        }
+        }, 
+
+        chatChoices: {
+            default: null,
+            type: cc.Node
+        },
+
+
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -41,10 +48,31 @@ cc.Class({
         this.node.on('onChoiceSelected', function (event) {
             self.onChoiceSelected(event.getUserData());
         });
+
+        this.schedule(function() {
+            // Here `this` is referring to the component
+            self.chatWindow.getComponent('chatWindow').addConversation("USER", "不好", {});
+        }, 2);
+        this.schedule(function() {
+            // Here `this` is referring to the component
+            self.chatWindow.getComponent('chatWindow').addConversation("CUSTOMER", "你好", {});
+        }, 3);
+
+        this.chatChoices.getComponent('chatChoices').addChoices(["好的", "不好", "我也不知道"]);
+
     },
 
+    // This is the callback for choice selected event
     onChoiceSelected : function (data) {
         this.chatWindow.getComponent('chatWindow').addConversation("USER", data.content, {});
+    },
+
+    init : function (data) {
+
+    },
+
+    postInit : function () {
+
     },
 
     start () {
