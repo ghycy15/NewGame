@@ -33,7 +33,7 @@ cc.Class({
         	get () {
         		return this._npcID;
         	}
-        }
+        },
 		relationPoints: {
 			type: cc.Integer,
 			get () {
@@ -42,14 +42,14 @@ cc.Class({
         	set (value) {
         		this._relationPoints = value;
         	}
-		}
+		},
 		profileImage: cc.Sprite,
 		CGs: {
 	        default: [],
 	        type: [cc.Sprite] 
 	    },
 		npcName: cc.String,
-		npcDescription: cc.String;
+		npcDescription: cc.String,
     },
 
     // LIFE-CYCLE CALLBACKS:
