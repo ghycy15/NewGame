@@ -27,58 +27,32 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        choiceBtnList: {
-            default: [],
-            type: cc.Node
-        },
-        
-        choiceTextList: {
-            default: [],
-            type: 'String'
-        },
-
-        choicePrefab: {
-            default: null,
-            type: cc.Prefab
-        },
-
-        choicesContainer: {
-            default: null,
-            type: cc.Layout
-        },
-        
-        chatWindow: {
-            default: null,
-            type: cc.ScrollView
-        }
-
     },
 
     // LIFE-CYCLE CALLBACKS:
+
     onLoad () {
         // this.node.on('say-hello', function (event) {
         //     console.log(event.detail.msg);
         // });
     },
-    
-    start () {
-        this.addChoice("aaa");
-        this.addChoice("bbbbbbbbb");
 
+    start () {
     },
 
-    addChoice: function (content) {
-        let choice = null;
-        choice = cc.instantiate(this.choicePrefab);
-        choice.getComponent(cc.Button).node.getChildByName('Label').getComponent(cc.Label).string = content;
-        this.choicesContainer.node.addChild(choice);
-        choice.getComponent('chatChoiceBtn').init();
-        //var self = this;
-        //
-        //choice.on('touchstart', function (event) {
-        //    this.chatWindow.getComponent('chatWindow').addConversation("USER", "aaaa", {});
+    init : function () {
 
-        //}, this);
+        this.node.on('touchstart', function (event) {
+            cc.log(this.node);
+            this.node.dispatchEvent( new cc.Event.EventCustom('onChoiceSelected', true) );
+            this.node.emit('say-hello', {
+                msg: 'test test',
+            });
+        }, this);
+    },
+
+    onClick : function () {
+    
     }
 
     // update (dt) {},

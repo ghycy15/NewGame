@@ -35,12 +35,12 @@ cc.Class({
         var label =  this.chatBubble.getChildByName("chatContent");
         label.getComponent(cc.Label).overflow = cc.Label.Overflow.NONE;
         label.getComponent(cc.Label).string = content;
-        cc.log(label.width);
+        // cc.log(label.width);
         if(label.width >= this.maxChatBoxWidth){
-            cc.log()
+            // cc.log()
             label.getComponent(cc.Label).overflow = cc.Label.Overflow.RESIZE_HEIGHT;
             label.width = this.maxChatBoxWidth;
-            cc.log("resize");
+            // cc.log("resize");
         }
 
 
@@ -52,13 +52,23 @@ cc.Class({
         //};
         //this.NodeA.width = this.labelA.node.width;
         //this.NodeA.height = this.labelA.node.height;
-        console.log(this.chatContentLabel.string + " " + this.chatContentLabel.node.width);
-        cc.log("Height " + this.node.height + " " + label.height);
+        // console.log(this.chatContentLabel.string + " " + this.chatContentLabel.node.width);
+        // cc.log("Height " + this.node.height + " " + label.height);
         this.node.height = 50 + label.height;
         //this.node.width = this.chatBubble.node.width;
         //console.log(this.profilePic.getComponent(cc.Widget));
+
+        this.node.on('say-hello', function (event) {
+            console.log(event.detail.msg);
+        });
     },
     
+    onLoad () {
+        this.node.on('say-hello', function (event) {
+            console.log(event.detail.msg);
+        });
+    },
+
     start () {
 
     },

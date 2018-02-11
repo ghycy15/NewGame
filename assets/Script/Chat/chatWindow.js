@@ -24,8 +24,7 @@ cc.Class({
         scrollView: {
             default: null,
             type: cc.ScrollView
-        },
-        totalCount: 0
+        }
     },
 
     addConversation: function (type, content, userData, scrollToBottom=true) {
@@ -61,6 +60,10 @@ cc.Class({
             // Here `this` is referring to the component
             this.addConversation("CUSTOMER", tmp[i%5], {});
         }, 3);
+
+        this.node.on('onChoiceSelected', function (event) {
+            cc.log("event");
+        });
 
     },
 
