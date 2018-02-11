@@ -1724,7 +1724,7 @@
       "height": 200
     },
     "_resize": 1,
-    "_N$layoutType": 1,
+    "_N$layoutType": 2,
     "_N$padding": 0,
     "_N$cellSize": {
       "__type__": "cc.Size",
@@ -1811,7 +1811,7 @@
     "choicesContainer": {
       "__id__": 44
     },
-    "btnSpacing": 15
+    "btnSpacing": 5
   },
   {
     "__type__": "cc.Widget",

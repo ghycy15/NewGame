@@ -48,7 +48,7 @@ cc.Class({
         },
 
         btnSpacing: {
-            default: 10,
+            default: 5,
             type: cc.Integer
         }
 
@@ -75,15 +75,18 @@ cc.Class({
 
     addChoices: function (choices) {
         // cc.log(this.node.width);
-        var btnWidth = ((this.node.width - ((choices.length + 1) * this.btnSpacing)) / choices.length) * 0.8;
-        var btnHeight = this.node.height - 2 * this.btnSpacing;
-        this.choicesContainer.getComponent(cc.Layout).spacingX = this.btnSpacing;
+        var btnHeight = ((this.node.height - ((choices.length + 1) * this.btnSpacing)) / choices.length) * 0.9;
+        // var btnWidth = this.node.width /2;
+        // cc.log(this.node.height);
+        // cc.log(btnHeight);
+        // cc.log(btnWidth);
+        this.choicesContainer.getComponent(cc.Layout).spacingY = this.btnSpacing;
         var self = this;
         choices.forEach(function(choice) {
             var choiceNode = self._addChoice(choice);
             if (!!choiceNode) {
                 choiceNode.getComponent(cc.Widget).top += self.btnSpacing;
-                choiceNode.width = btnWidth;
+                //choiceNode.width = btnWidth;
                 choiceNode.height = btnHeight;
             }
         });

@@ -58,7 +58,7 @@ cc.Class({
             self.chatWindow.getComponent('chatWindow').addConversation("CUSTOMER", "你好", {});
         }, 3);
 
-        this.chatChoices.getComponent('chatChoices').addChoices(["好的", "不好", "我也不知道"]);
+        this.chatChoices.getComponent('chatChoices').addChoices(["好的", "不好"]);
 
     },
 
