@@ -57,16 +57,9 @@ cc.Class({
         this.node.height = 50 + label.height;
         //this.node.width = this.chatBubble.node.width;
         //console.log(this.profilePic.getComponent(cc.Widget));
-
-        this.node.on('say-hello', function (event) {
-            console.log(event.detail.msg);
-        });
     },
     
     onLoad () {
-        this.node.on('say-hello', function (event) {
-            console.log(event.detail.msg);
-        });
     },
 
     start () {

@@ -27,14 +27,24 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
+        chatWindow: {
+            default: null,
+            type: cc.Node
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        this.node.on('foobar', function (event) {
-            cc.log("fooooooo");
+        cc.log(this.chatWindow);
+        var self = this;
+        this.node.on('onChoiceSelected', function (event) {
+            self.onChoiceSelected(event.getUserData());
         });
+    },
+
+    onChoiceSelected : function (data) {
+        this.chatWindow.getComponent('chatWindow').addConversation("USER", data.content, {});
     },
 
     start () {

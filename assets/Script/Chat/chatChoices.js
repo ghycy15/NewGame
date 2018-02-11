@@ -59,27 +59,34 @@ cc.Class({
         // this.node.on('say-hello', function (event) {
         //     console.log(event.detail.msg);
         // });
+        this.addChoice("aaaaaaaaa");
+        this.addChoice("bbbbbbbbb");
+        this.addChoice("Ccccccc");
+        this.addChoice("dd");
+
     },
     
     start () {
-        this.addChoice("aaa");
-        this.addChoice("bbbbbbbbb");
-        this.node.dispatchEvent( new cc.Event.EventCustom('foobar', true) );
-
+        
     },
 
     addChoice: function (content) {
         let choice = null;
         choice = cc.instantiate(this.choicePrefab);
-        choice.getComponent(cc.Button).node.getChildByName('Label').getComponent(cc.Label).string = content;
         this.choicesContainer.node.addChild(choice);
-        choice.getComponent('chatChoiceBtn').init();
-        //var self = this;
-        //
-        //choice.on('touchstart', function (event) {
-        //    this.chatWindow.getComponent('chatWindow').addConversation("USER", "aaaa", {});
+        choice.getComponent('chatChoiceBtn').init(content);
+    },
 
-        //}, this);
+    addChoices: function () {
+
+    },
+
+    hide : function () {
+
+    },
+
+    show : function () {
+
     }
 
     // update (dt) {},

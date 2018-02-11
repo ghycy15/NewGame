@@ -27,6 +27,14 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
+        btnLabel : {
+            default: null,
+            type: cc.Label
+        },
+
+        data : {
+            default: {}
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -40,20 +48,18 @@ cc.Class({
     start () {
     },
 
-    init : function () {
-
+    init : function (content) {
+        this.btnLabel.string = content;
+        this.data['content'] = content;
+        var self = this;
         this.node.on('touchstart', function (event) {
-            cc.log(this.node);
-            this.node.dispatchEvent( new cc.Event.EventCustom('onChoiceSelected', true) );
-            this.node.emit('say-hello', {
-                msg: 'test test',
-            });
+            const onChoiceSelectedEvent = new cc.Event.EventCustom('onChoiceSelected', true);
+            onChoiceSelectedEvent.setUserData(self.data);
+            this.node.dispatchEvent( onChoiceSelectedEvent );
         }, this);
     },
 
-    onClick : function () {
-    
-    }
+
 
     // update (dt) {},
 });

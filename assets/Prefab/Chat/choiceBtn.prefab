@@ -294,7 +294,10 @@
     "node": {
       "__id__": 1
     },
-    "_enabled": true
+    "_enabled": true,
+    "btnLabel": {
+      "__id__": 3
+    }
   },
   {
     "__type__": "cc.PrefabInfo",
