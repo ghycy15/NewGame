@@ -245,9 +245,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "545a996b-c8df-4faa-98e1-dabadcd20781"
+      "__id__": 0
     },
-    "fileId": "613da0R8JZPoZGBnH74/UXk",
+    "fileId": "4eFcdZI/BKWKJ9jKPEKooR",
     "sync": false
   },
   {
@@ -367,9 +367,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "545a996b-c8df-4faa-98e1-dabadcd20781"
+      "__id__": 0
     },
-    "fileId": "2e06a+/tzZHg53v+DZ4iYN9",
+    "fileId": "f6aWN9MSRGyYNxiHg2BH7d",
     "sync": false
   },
   {
@@ -430,9 +430,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "545a996b-c8df-4faa-98e1-dabadcd20781"
+      "__id__": 0
     },
-    "fileId": "a508cNv6+5DJ6t0m86WAYAW",
+    "fileId": "50N2S9s7dC3owcK7w9wbw5",
     "sync": false
   },
   {
@@ -548,9 +548,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "545a996b-c8df-4faa-98e1-dabadcd20781"
+      "__id__": 0
     },
-    "fileId": "2b394ccXWhIdb6DGtmkD293",
+    "fileId": "f14GzO5iRIDbtpEbbSuMYR",
     "sync": false
   },
   {
@@ -728,9 +728,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "545a996b-c8df-4faa-98e1-dabadcd20781"
+      "__id__": 0
     },
-    "fileId": "93WpMr9RdEf7lQ0y9GNrvn",
+    "fileId": "b8VcwGek5BiJOZGPvE7iK5",
     "sync": false
   },
   {
@@ -870,9 +870,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "545a996b-c8df-4faa-98e1-dabadcd20781"
+      "__id__": 0
     },
-    "fileId": "4eLHZJXKlAMoSDgaoYK+IN",
+    "fileId": "4dpkQ3SzhAk75exjZTQvE2",
     "sync": false
   },
   {
@@ -883,6 +883,7 @@
       "__id__": 1
     },
     "_enabled": true,
+    "id": 0,
     "icon": {
       "__id__": 8
     },
@@ -891,38 +892,7 @@
     },
     "itemPrice": {
       "__id__": 15
-    },
-    "itemIcons": [
-      {
-        "__uuid__": "0bceaf2a-25c2-465d-a7e5-b2aac374291e"
-      },
-      {
-        "__uuid__": "9f3a334c-29a5-46dc-a2ee-0adfdc77e5ce"
-      },
-      {
-        "__uuid__": "eb7080fa-bd8f-41a4-b784-583aa47b124f"
-      },
-      {
-        "__uuid__": "625ca6c8-761a-43ae-836e-9dd5a81297e7"
-      },
-      {
-        "__uuid__": "a976c2a5-2d3e-4a89-a513-c63280e7cc1a"
-      }
-    ],
-    "itemPrices": [
-      0,
-      20,
-      30,
-      40,
-      50
-    ],
-    "itemNames": [
-      "面粉",
-      "鸡蛋",
-      "牛奶",
-      "奶油",
-      "水果"
-    ]
+    }
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -930,9 +900,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "545a996b-c8df-4faa-98e1-dabadcd20781"
+      "__id__": 0
     },
-    "fileId": "1c74bRLHDpPgaK+IKGOPyyP",
+    "fileId": "f9RuThrhxJ+YDnsudxqiNa",
     "sync": false
   }
 ]

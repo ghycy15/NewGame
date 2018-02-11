@@ -18,15 +18,12 @@ cc.Class({
 
 
 
-    addItemSlot: function () {
+    addItemSlot: function (index) {
         let itemSlot = cc.instantiate(this.slotPrefab);
         this.scrollView.content.addChild(itemSlot);
         console.log(itemSlot);
-        itemSlot.getComponent('ItemTemplate').init({
-            id: i,
-            name: 'abc',
-            price: '20',
-            icon: this.iconSF,
+        itemSlot.getComponent('shopItem').init({
+            id: index,
         });
         return itemSlot;
     },
@@ -34,8 +31,8 @@ cc.Class({
     start () {
         console.log(Global.gold);
         this.itemSlots = [];
-        for (let i = 0; i < this.totalCount; ++i) {
-            let itemSlot = this.addItemSlot();
+        for (let i = 0; i < 5; ++i) {
+            let itemSlot = this.addItemSlot(i);
             this.itemSlots.push(itemSlot);
         }
         //console.log(this.itemSlots);

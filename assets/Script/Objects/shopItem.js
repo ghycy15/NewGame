@@ -4,23 +4,33 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        id: 0,
         icon: cc.Sprite,
         itemName: cc.Label,
         itemPrice: cc.Label,
+        itemIcons: {
+            default: [],
+            type: cc.SpriteFrame
+        },
+        itemPrices: [cc.Integer],
+        itemNames: [cc.String],
     },
 
     // data: {id,iconSF,itemName,itemPrice}
     init: function (data) {
-        this.id = data.id;
-        this.icon.spriteFrame = data.icon;
-        this.itemName.string = data.name;
-        this.itemPrice.string = data.price;
-        this.itemPriceNum = data.price;
+        let id = data.id;
+        if (id > this.itemIcons.length) {
+            // 如果溢出使用默认图标
+            id = 0;
+        }
+
+        this.icon.spriteFrame = this.itemIcons[id];
+        this.itemName.string = this.itemNames[id];
+        this.itemPriceValue = this.itemPrices[id];
+        this.itemPrice.string = this.itemPrices[id];
     },
 
     onClick: function () {
-        Global.gold = Global.gold - this.itemPriceNum;
+        Global.gold = Global.gold - this.itemPriceValue;
         console.log(Global.gold);
     },
 });
