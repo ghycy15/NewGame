@@ -25,20 +25,25 @@ cc.Class({
         itemSlot.getComponent('ItemTemplate').init({
             id: i,
             name: 'abc',
-            price: '200',
+            price: '20',
             icon: this.iconSF,
         });
         return itemSlot;
     },
 
     start () {
-        console.log(Global.content);
+        console.log(Global.gold);
         this.itemSlots = [];
         for (let i = 0; i < this.totalCount; ++i) {
             let itemSlot = this.addItemSlot();
             this.itemSlots.push(itemSlot);
         }
         //console.log(this.itemSlots);
+    },
+
+
+    gotoHome: function () {
+        cc.director.loadScene("mainScreen");
     },
 
     update (dt) {

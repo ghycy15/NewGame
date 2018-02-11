@@ -28,11 +28,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 27
+        "__id__": 28
       }
     ],
     "_prefab": {
-      "__id__": 28
+      "__id__": 29
     },
     "_id": "",
     "_opacity": 255,
@@ -575,11 +575,11 @@
         "__id__": 24
       },
       {
-        "__id__": 25
+        "__id__": 26
       }
     ],
     "_prefab": {
-      "__id__": 26
+      "__id__": 27
     },
     "_id": "",
     "_opacity": 255,
@@ -784,7 +784,11 @@
     },
     "duration": 0.1,
     "zoomScale": 1.2,
-    "clickEvents": [],
+    "clickEvents": [
+      {
+        "__id__": 25
+      }
+    ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
     "_N$normalColor": {
@@ -822,6 +826,15 @@
     "_N$target": {
       "__id__": 18
     }
+  },
+  {
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 1
+    },
+    "component": "ItemTemplate",
+    "handler": "onClick",
+    "customEventData": ""
   },
   {
     "__type__": "cc.Widget",

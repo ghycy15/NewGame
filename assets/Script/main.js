@@ -11,16 +11,16 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        label: {
+        goldLabel: {
             default: null,
             type: cc.Label
         },
         contactsUI: contactsUI,
         text: 'Long live LCF!',
-        homeBtnGroups: {
+        /*homeBtnGroups: {
             default: [],
             type: cc.Node
-        },
+        },*/
     },
 
     // use this for initialization
@@ -29,11 +29,14 @@ cc.Class({
         this.curPanel = PanelType.Home;
         //this.DataBus.init('init');
         Global.content = 'init';
+        if (!Global.gold) { 
+            Global.gold = 100;
+        }
     },
 
     // called every frame
     update: function (dt) {
-
+        this.goldLabel.getComponent(cc.Label).string = Global.gold;
     },
 
     start: function () {
