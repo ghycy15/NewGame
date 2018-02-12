@@ -27,66 +27,59 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        chatWindow: {
+        contactSlotPrefab: {
             default: null,
-            type: cc.Node
-        }, 
+            type: cc.Prefab
+        },
 
-        chatChoices: {
+        contactContainer: {
             default: null,
             type: cc.Node
         },
 
-        chatStatusBar: {
+        chatViewPrefab: {
             default: null,
-            type: cc.Node
+            type: cc.Prefab
         }
-
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        cc.log(this.chatWindow);
-        var self = this;
-        this.node.on('onChoiceSelected', function (event) {
-            self.onChoiceSelected(event.getUserData());
-        });
-
-        this.schedule(function() {
-            // Here `this` is referring to the component
-            self.chatWindow.getComponent('chatWindow').addConversation("USER", "不好", {});
-        }, 2);
-        this.schedule(function() {
-            // Here `this` is referring to the component
-            self.chatWindow.getComponent('chatWindow').addConversation("CUSTOMER", "你好", {});
-        }, 3);
-
-        this.chatChoices.getComponent('chatChoices').addChoices(["好的", "不好"]);
-
-    },
-
-    // This is the callback for choice selected event
-    onChoiceSelected : function (data) {
-        this.chatWindow.getComponent('chatWindow').addConversation("USER", data.content, {});
-    },
-
-    init : function (data) {
-        var customerName = data['customerName'];
-
-        let chatStatusBar = this.chatStatusBar.getComponent('chatStatusBar');
-        if (!!chatStatusBar) {
-            chatStatusBar.setName(customerName);
-        }
-    },
-
-    postInit : function () {
-
+        
+        this.init({'contacts':[{'name':'小红'},{'name':'小芳'},{'name':'小兰'},{'name':'小绿'},{'name':'小紫'},{'name':'abc'},{'name':'abc'}]});
     },
 
     start () {
 
     },
+
+    /*
+     * Expected data to init contacts:
+     * data : {
+     *     contacts: [
+     *         {name:xxxx, lastMessage:xxxx, profilePicIndex:xx}
+     *     ]
+     * }
+     *
+     */
+    init : function (data) {
+        let contacts = data['contacts'];
+        var self = this;
+        if (!!contacts) {
+            contacts.forEach(function(contact) {
+                let contactSlot = null;
+                contactSlot = cc.instantiate(self.contactSlotPrefab);
+                if (!!contactSlot) {
+                    contactSlot.getComponent('contactSlot').setName(contact['name']);
+                    contactSlot.getComponent('contactSlot').setLastMsg("aaa zxc asda");
+
+                    self.contactContainer.getComponent(cc.ScrollView).content.addChild(contactSlot);
+                    contactSlot.getComponent('contactSlot').init();
+                }
+            });
+        }
+    }
 
     // update (dt) {},
 });

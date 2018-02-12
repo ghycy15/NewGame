@@ -27,66 +27,52 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        chatWindow: {
+        profilePic: {
             default: null,
-            type: cc.Node
-        }, 
-
-        chatChoices: {
-            default: null,
-            type: cc.Node
+            type: cc.Sprite
         },
 
-        chatStatusBar: {
+        lastMsgLabel: {
             default: null,
-            type: cc.Node
-        }
+            type: cc.Label
+        },
 
+        nameLabel: {
+            default: null,
+            type: cc.Label
+        },
+
+        
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
-        cc.log(this.chatWindow);
-        var self = this;
-        this.node.on('onChoiceSelected', function (event) {
-            self.onChoiceSelected(event.getUserData());
-        });
-
-        this.schedule(function() {
-            // Here `this` is referring to the component
-            self.chatWindow.getComponent('chatWindow').addConversation("USER", "不好", {});
-        }, 2);
-        this.schedule(function() {
-            // Here `this` is referring to the component
-            self.chatWindow.getComponent('chatWindow').addConversation("CUSTOMER", "你好", {});
-        }, 3);
-
-        this.chatChoices.getComponent('chatChoices').addChoices(["好的", "不好"]);
-
-    },
-
-    // This is the callback for choice selected event
-    onChoiceSelected : function (data) {
-        this.chatWindow.getComponent('chatWindow').addConversation("USER", data.content, {});
-    },
-
-    init : function (data) {
-        var customerName = data['customerName'];
-
-        let chatStatusBar = this.chatStatusBar.getComponent('chatStatusBar');
-        if (!!chatStatusBar) {
-            chatStatusBar.setName(customerName);
-        }
-    },
-
-    postInit : function () {
-
-    },
+    // onLoad () {},
 
     start () {
 
     },
+
+    init : function () {
+        this.node.on('touchstart', function (event) {
+            const onContactSelectedEvent = new cc.Event.EventCustom('onContactSelected', true);
+            cc.log(this.nameLabel.string);
+            onContactSelectedEvent.setUserData({});
+            this.node.dispatchEvent( onContactSelectedEvent );
+        }, this);
+    },
+
+    setName : function (name) {
+        this.nameLabel.string = name;
+    },
+
+    setLastMsg: function (msg) {
+        this.lastMsgLabel.string = msg;
+    },
+
+    setProfilePic: function () {
+
+    }
 
     // update (dt) {},
 });
