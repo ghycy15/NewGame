@@ -7,6 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
+var Customer = require('Customer');
 
 cc.Class({
     extends: cc.Component,
@@ -27,66 +28,63 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        chatWindow: {
+        profilePic: {
             default: null,
-            type: cc.Node
-        }, 
-
-        chatChoices: {
-            default: null,
-            type: cc.Node
+            type: cc.Sprite
         },
 
-        chatStatusBar: {
+        lastMsgLabel: {
             default: null,
-            type: cc.Node
+            type: cc.Label
+        },
+
+        nameLabel: {
+            default: null,
+            type: cc.Label
+        },
+
+        customer: {
+            default: null,
+            type: Customer
         }
 
+        
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
-        cc.log(this.chatWindow);
-        var self = this;
-        this.node.on('onChoiceSelected', function (event) {
-            self.onChoiceSelected(event.getUserData());
-        });
-
-        this.schedule(function() {
-            // Here `this` is referring to the component
-            self.chatWindow.getComponent('chatWindow').addConversation("USER", "不好", {});
-        }, 2);
-        this.schedule(function() {
-            // Here `this` is referring to the component
-            self.chatWindow.getComponent('chatWindow').addConversation("CUSTOMER", "你好", {});
-        }, 3);
-
-        this.chatChoices.getComponent('chatChoices').addChoices(["好的", "不好"]);
-
-    },
-
-    // This is the callback for choice selected event
-    onChoiceSelected : function (data) {
-        this.chatWindow.getComponent('chatWindow').addConversation("USER", data.content, {});
-    },
-
-    init : function (customer) {
-        var customerName = customer.getName();
-
-        let chatStatusBar = this.chatStatusBar.getComponent('chatStatusBar');
-        if (!!chatStatusBar) {
-            chatStatusBar.setName(customerName);
-        }
-    },
-
-    postInit : function () {
-
-    },
+    // onLoad () {},
 
     start () {
 
     },
+
+    init : function (data) {
+        this.customer = new Customer(data);
+        this.nameLabel.string = this.customer.getName();
+        this.lastMsgLabel.string = this.customer.getLastMsg();
+
+        // cc.log(this.customer);
+        var self = this;
+        this.node.on('click', function (event) {
+            const onContactSelectedEvent = new cc.Event.EventCustom('onContactSelected', true);
+            // cc.log(this.nameLabel.string);
+            onContactSelectedEvent.setUserData(self.customer);
+            this.node.dispatchEvent( onContactSelectedEvent );
+        }, this);
+    },
+
+    setName : function (name) {
+        this.nameLabel.string = name;
+    },
+
+    setLastMsg: function (msg) {
+        this.lastMsgLabel.string = msg;
+    },
+
+    setProfilePic: function () {
+
+    }
 
     // update (dt) {},
 });

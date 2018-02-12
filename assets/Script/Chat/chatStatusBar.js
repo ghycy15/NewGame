@@ -27,66 +27,36 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        chatWindow: {
+        customerNameLabel: {
             default: null,
-            type: cc.Node
-        }, 
-
-        chatChoices: {
-            default: null,
-            type: cc.Node
+            type: cc.Label
         },
 
-        chatStatusBar: {
+        goBackContactsBtn: {
             default: null,
-            type: cc.Node
+            type: cc.Button
         }
-
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        cc.log(this.chatWindow);
         var self = this;
-        this.node.on('onChoiceSelected', function (event) {
-            self.onChoiceSelected(event.getUserData());
-        });
-
-        this.schedule(function() {
-            // Here `this` is referring to the component
-            self.chatWindow.getComponent('chatWindow').addConversation("USER", "不好", {});
-        }, 2);
-        this.schedule(function() {
-            // Here `this` is referring to the component
-            self.chatWindow.getComponent('chatWindow').addConversation("CUSTOMER", "你好", {});
-        }, 3);
-
-        this.chatChoices.getComponent('chatChoices').addChoices(["好的", "不好"]);
-
-    },
-
-    // This is the callback for choice selected event
-    onChoiceSelected : function (data) {
-        this.chatWindow.getComponent('chatWindow').addConversation("USER", data.content, {});
-    },
-
-    init : function (customer) {
-        var customerName = customer.getName();
-
-        let chatStatusBar = this.chatStatusBar.getComponent('chatStatusBar');
-        if (!!chatStatusBar) {
-            chatStatusBar.setName(customerName);
-        }
-    },
-
-    postInit : function () {
-
+        this.goBackContactsBtn.node.on('touchstart', function (event) {
+            const onGoBackContactsEvent = new cc.Event.EventCustom('onGoBackContacts', true);
+            // cc.log("clicked go back button");
+            onGoBackContactsEvent.setUserData(self.customer);
+            self.goBackContactsBtn.node.dispatchEvent( onGoBackContactsEvent );
+        }, this);
     },
 
     start () {
 
     },
+
+    setName : function (name) {
+        this.customerNameLabel.string = name;
+    }
 
     // update (dt) {},
 });
