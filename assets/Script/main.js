@@ -1,5 +1,4 @@
-const contactsUI = require('contactsUI');
-const shopUI = require('shopUI');
+const fridgeUI = require('FridgeUI');
 const Global = require('Global');
 
 const PanelType = cc.Enum({
@@ -15,7 +14,7 @@ cc.Class({
             default: null,
             type: cc.Label
         },
-        contactsUI: contactsUI,
+        fridgeUI: fridgeUI,
         text: 'Long live LCF!',
         /*homeBtnGroups: {
             default: [],
@@ -32,6 +31,11 @@ cc.Class({
         if (!Global.gold) { 
             Global.gold = 100;
         }
+
+        if (!Global.items) {
+            // Load all user items here
+            Global.items = {};
+        }
     },
 
     // called every frame
@@ -40,7 +44,7 @@ cc.Class({
     },
 
     start: function () {
-        //this.contactsUI.init(this, PanelType.Contacts);
+        this.fridgeUI.init(Global.items);
     },
 
     toggleHomeBtns: function (enable) {

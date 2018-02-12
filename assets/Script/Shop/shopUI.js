@@ -12,11 +12,8 @@ cc.Class({
             default: null,
             type: cc.ScrollView
         },
-        iconSF: cc.SpriteFrame,
         totalCount: 0
     },
-
-
 
     addItemSlot: function (index) {
         let itemSlot = cc.instantiate(this.slotPrefab);
@@ -29,13 +26,21 @@ cc.Class({
     },
 
     start () {
+
+    },
+
+    onLoad () {
+        this.refreshItems();
+        //console.log(this.itemSlots);
+    },
+
+    refreshItems () {
         console.log(Global.gold);
         this.itemSlots = [];
         for (let i = 0; i < 5; ++i) {
             let itemSlot = this.addItemSlot(i);
             this.itemSlots.push(itemSlot);
         }
-        //console.log(this.itemSlots);
     },
 
 

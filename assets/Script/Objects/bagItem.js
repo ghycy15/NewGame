@@ -6,12 +6,11 @@ cc.Class({
     properties: {
         icon: cc.Sprite,
         itemName: cc.Label,
-        itemPrice: cc.Label,
+        itemQuantity: cc.Label,
         itemIcons: {
             default: [],
             type: cc.SpriteFrame
         },
-        itemPrices: [cc.Integer],
         itemNames: [cc.String],
     },
 
@@ -25,20 +24,6 @@ cc.Class({
 
         this.icon.spriteFrame = this.itemIcons[id];
         this.itemName.string = this.itemNames[id];
-        this.itemPriceValue = this.itemPrices[id];
-        this.itemPrice.string = this.itemPrices[id];
-        this.id = id;
-    },
-
-    onClick: function () {
-        Global.gold = Global.gold - this.itemPriceValue;
-        let items = Global.items;
-        console.log(Global.gold);
-
-        if (Global.items[this.id]) {
-            Global.items[this.id] += 1;
-        } else {
-            Global.items[this.id] = 1;
-        }
+        this.itemQuantity.string = data.quantity;
     },
 });
