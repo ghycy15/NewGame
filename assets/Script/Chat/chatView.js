@@ -71,8 +71,8 @@ cc.Class({
         this.chatWindow.getComponent('chatWindow').addConversation("USER", data.content, {});
     },
 
-    init : function (data) {
-        var customerName = data['customerName'];
+    init : function (customer) {
+        var customerName = customer.getName();
 
         let chatStatusBar = this.chatStatusBar.getComponent('chatStatusBar');
         if (!!chatStatusBar) {

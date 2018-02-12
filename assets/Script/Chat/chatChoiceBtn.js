@@ -28,7 +28,7 @@ cc.Class({
         this.btnLabel.string = content;
         this.data['content'] = content;
         var self = this;
-        this.node.on('touchstart', function (event) {
+        this.node.on('click', function (event) {
             const onChoiceSelectedEvent = new cc.Event.EventCustom('onChoiceSelected', true);
             onChoiceSelectedEvent.setUserData(self.data);
             this.node.dispatchEvent( onChoiceSelectedEvent );

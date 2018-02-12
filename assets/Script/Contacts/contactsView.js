@@ -40,18 +40,39 @@ cc.Class({
         chatViewPrefab: {
             default: null,
             type: cc.Prefab
+        },
+
+        currentChatView: {
+            default: null,
+            type: cc.Node
+        },
+
+        chatViewPlaceHolder: {
+            default: null,
+            type: cc.Node
         }
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        var self = this;
+
+        // this.chatViewPlaceHolder.width = this.node.width;
+        // this.chatViewPlaceHolder.height = this.height;
         
+        this.node.on('onContactSelected', function (event) {
+            self.onContactSelected(event.getUserData());
+        });
+        this.node.on('onGoBackContacts', function (event) {
+            self.onGoBackContacts(event.getUserData());
+        });
         this.init({'contacts':[{'name':'小红'},{'name':'小芳'},{'name':'小兰'},{'name':'小绿'},{'name':'小紫'},{'name':'abc'},{'name':'abc'}]});
     },
 
     start () {
 
+        
     },
 
     /*
@@ -71,13 +92,53 @@ cc.Class({
                 let contactSlot = null;
                 contactSlot = cc.instantiate(self.contactSlotPrefab);
                 if (!!contactSlot) {
-                    contactSlot.getComponent('contactSlot').setName(contact['name']);
-                    contactSlot.getComponent('contactSlot').setLastMsg("aaa zxc asda");
-
                     self.contactContainer.getComponent(cc.ScrollView).content.addChild(contactSlot);
-                    contactSlot.getComponent('contactSlot').init();
+                    contactSlot.getComponent('contactSlot').init(contact);
                 }
             });
+        }
+    },
+
+    onContactSelected : function (data) {
+        cc.log(data);
+        let chatView = null;
+        chatView = cc.instantiate(this.chatViewPrefab);
+        if (!!chatView && !this.currentChatView) {
+            this.currentChatView = chatView;
+            
+
+            // this.node.addChild(chatView);
+            cc.log(this.node.width);
+            this.chatViewPlaceHolder.width = this.node.width;
+            this.chatViewPlaceHolder.addChild(chatView);
+
+            // chatView.x = -chatView.width;
+            // chatView.position.x *= 2;
+            // chatView.getComponent(cc.Widget).left = chatView.width * 2;
+            var action = cc.moveTo(0.2, 0, chatView.height);
+            // // // 执行动作
+            action.easing(cc.easeIn(3.0));
+            chatView.runAction(action);
+            // chatView.getComponent(cc.Widget).left = 0;
+            // // 停止一个动作
+            // chatView.stopAction(action);
+            
+            chatView.getComponent('chatView').init(data);
+            //contactSlot.getComponent('contactSlot').init(contact);
+        }
+    },
+
+    onGoBackContacts : function (data) {
+        cc.log(this.currentChatView);
+        // cc.log(this.currentChatView);
+        if (!!this.currentChatView) {
+            var action = cc.moveTo(0.2, this.currentChatView.width, this.currentChatView.height / 2);
+            // // // 执行动作
+            action.easing(cc.easeIn(3.0));
+            this.currentChatView.runAction(action);
+
+            //this.currentChatView.active = false;
+            this.currentChatView = null;
         }
     }
 

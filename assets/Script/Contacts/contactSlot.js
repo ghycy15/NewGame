@@ -7,6 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
+var Customer = require('Customer');
 
 cc.Class({
     extends: cc.Component,
@@ -42,6 +43,11 @@ cc.Class({
             type: cc.Label
         },
 
+        customer: {
+            default: null,
+            type: Customer
+        }
+
         
     },
 
@@ -53,11 +59,17 @@ cc.Class({
 
     },
 
-    init : function () {
-        this.node.on('touchstart', function (event) {
+    init : function (data) {
+        this.customer = new Customer(data);
+        this.nameLabel.string = this.customer.getName();
+        this.lastMsgLabel.string = this.customer.getLastMsg();
+
+        // cc.log(this.customer);
+        var self = this;
+        this.node.on('click', function (event) {
             const onContactSelectedEvent = new cc.Event.EventCustom('onContactSelected', true);
-            cc.log(this.nameLabel.string);
-            onContactSelectedEvent.setUserData({});
+            // cc.log(this.nameLabel.string);
+            onContactSelectedEvent.setUserData(self.customer);
             this.node.dispatchEvent( onContactSelectedEvent );
         }, this);
     },

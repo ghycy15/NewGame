@@ -30,12 +30,25 @@ cc.Class({
         customerNameLabel: {
             default: null,
             type: cc.Label
+        },
+
+        goBackContactsBtn: {
+            default: null,
+            type: cc.Button
         }
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad () {
+        var self = this;
+        this.goBackContactsBtn.node.on('touchstart', function (event) {
+            const onGoBackContactsEvent = new cc.Event.EventCustom('onGoBackContacts', true);
+            // cc.log("clicked go back button");
+            onGoBackContactsEvent.setUserData(self.customer);
+            self.goBackContactsBtn.node.dispatchEvent( onGoBackContactsEvent );
+        }, this);
+    },
 
     start () {
 
