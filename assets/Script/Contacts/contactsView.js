@@ -50,6 +50,11 @@ cc.Class({
         chatViewPlaceHolder: {
             default: null,
             type: cc.Node
+        },
+
+        contactChatViewMapper: {
+            default: {},
+            serializable: true
         }
     },
 
@@ -67,7 +72,7 @@ cc.Class({
         this.node.on('onGoBackContacts', function (event) {
             self.onGoBackContacts(event.getUserData());
         });
-        this.init({'contacts':[{'name':'小红'},{'name':'小芳'},{'name':'小兰'},{'name':'小绿'},{'name':'小紫'},{'name':'abc'},{'name':'abc'}]});
+        this.init({'contacts':[{'name':'小红', 'id':1, 'lastMsg':'你好'},{'name':'小芳','id':2},{'name':'小兰', 'id':3},{'name':'小绿', 'id':4}]});
     },
 
     start () {
@@ -101,45 +106,45 @@ cc.Class({
 
     onContactSelected : function (data) {
         cc.log(data);
-        let chatView = null;
-        chatView = cc.instantiate(this.chatViewPrefab);
+        let chatView = this.contactChatViewMapper[data.getID()];
         if (!!chatView && !this.currentChatView) {
-            this.currentChatView = chatView;
-            
+            this.showChatView(chatView);
+        } else {
+            chatView = cc.instantiate(this.chatViewPrefab);
+            this.contactChatViewMapper[data.getID()] = chatView;
+            if (!!chatView && !this.currentChatView) {
 
-            // this.node.addChild(chatView);
-            cc.log(this.node.width);
-            this.chatViewPlaceHolder.width = this.node.width;
-            this.chatViewPlaceHolder.addChild(chatView);
+                this.chatViewPlaceHolder.x = this.node.width;
+                this.chatViewPlaceHolder.width = this.node.width;
+                this.chatViewPlaceHolder.height = this.node.height;
+                this.chatViewPlaceHolder.addChild(chatView);
 
-            // chatView.x = -chatView.width;
-            // chatView.position.x *= 2;
-            // chatView.getComponent(cc.Widget).left = chatView.width * 2;
-            var action = cc.moveTo(0.2, 0, chatView.height);
-            // // // 执行动作
-            action.easing(cc.easeIn(3.0));
-            chatView.runAction(action);
-            // chatView.getComponent(cc.Widget).left = 0;
-            // // 停止一个动作
-            // chatView.stopAction(action);
-            
-            chatView.getComponent('chatView').init(data);
-            //contactSlot.getComponent('contactSlot').init(contact);
+                this.showChatView(chatView);
+                chatView.getComponent('chatView').init(data);
+            }
         }
+        
     },
 
     onGoBackContacts : function (data) {
-        cc.log(this.currentChatView);
-        // cc.log(this.currentChatView);
         if (!!this.currentChatView) {
-            var action = cc.moveTo(0.2, this.currentChatView.width, this.currentChatView.height / 2);
-            // // // 执行动作
-            action.easing(cc.easeIn(3.0));
-            this.currentChatView.runAction(action);
-
-            //this.currentChatView.active = false;
-            this.currentChatView = null;
+            this.hideChatView(this.currentChatView);
         }
+    },
+
+    showChatView : function(chatView) {
+        var action = cc.moveBy(0.2, -this.node.width, 0);
+        action.easing(cc.easeIn(3.0));
+        chatView.runAction(action);
+        cc.log(chatView.x + " " + chatView.y);
+        this.currentChatView = chatView;
+    },
+
+    hideChatView : function(chatView) {
+        var action = cc.moveBy(0.2, this.node.width,0);
+        action.easing(cc.easeIn(3.0));
+        chatView.runAction(action);
+        this.currentChatView = null;
     }
 
     // update (dt) {},

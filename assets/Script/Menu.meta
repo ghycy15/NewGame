@@ -1,5 +1,9 @@
 {
   "ver": "1.0.1",
+<<<<<<< HEAD
   "uuid": "723f0cb3-519f-4581-a836-bbfaa8e320c3",
+=======
+  "uuid": "763536f9-6fea-41cd-bf1d-321ee7fcac14",
+>>>>>>> fix sliding chatview
   "subMetas": {}
 }
