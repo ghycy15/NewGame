@@ -7,6 +7,8 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
+var Customer = require('Customer');
+const Global = require('Global');
 
 cc.Class({
     extends: cc.Component,
@@ -40,7 +42,12 @@ cc.Class({
         chatStatusBar: {
             default: null,
             type: cc.Node
-        }
+        },
+
+        customer: {
+            default: null,
+            type: Customer
+        },
 
     },
 
@@ -52,32 +59,22 @@ cc.Class({
         this.node.on('onChoiceSelected', function (event) {
             self.onChoiceSelected(event.getUserData());
         });
-
-        this.schedule(function() {
-            // Here `this` is referring to the component
-            self.chatWindow.getComponent('chatWindow').addConversation("USER", "不好", {});
-        }, 2);
-        this.schedule(function() {
-            // Here `this` is referring to the component
-            self.chatWindow.getComponent('chatWindow').addConversation("CUSTOMER", "你好", {});
-        }, 3);
-
-        this.chatChoices.getComponent('chatChoices').addChoices(["好的", "不好"]);
-
-    },
-
-    // This is the callback for choice selected event
-    onChoiceSelected : function (data) {
-        this.chatWindow.getComponent('chatWindow').addConversation("USER", data.content, {});
     },
 
     init : function (customer) {
+        var self = this;
+        this.customer = customer;
         var customerName = customer.getName();
 
         let chatStatusBar = this.chatStatusBar.getComponent('chatStatusBar');
         if (!!chatStatusBar) {
-            chatStatusBar.setName(customerName);
+            chatStatusBar.setName(customer);
         }
+        customer.getChatHistory().forEach(function(msg) {
+            self.addConversation("CUSTOMER", msg.getBody(), {}, false);
+        });
+        this.addConversation("CUSTOMER", "你好", {}, true, 2, 99, 2);
+        this.setChoices(["好的", "不好"]);
     },
 
     postInit : function () {
@@ -88,5 +85,26 @@ cc.Class({
 
     },
 
-    // update (dt) {},
+    update (dt) {
+
+    },
+
+    // This is the callback for choice selected event
+    onChoiceSelected : function (data) {
+        this.addConversation("USER", data.content, {});
+    },
+
+    addConversation : function (type, msg, userData, shouldRecordMsg=true, interval=0, repeat=0, delay=0) {
+        var self = this;
+        this.schedule(function() {
+            if (shouldRecordMsg) {
+                self.customer.addDialogue(msg);
+            }
+            self.chatWindow.getComponent('chatWindow').addConversation(type, msg, userData);
+        }, interval, repeat, delay);
+    },
+
+    setChoices : function (choices) {
+         this.chatChoices.getComponent('chatChoices').setChoices(choices);
+    },
 });

@@ -73,7 +73,8 @@ cc.Class({
         return choiceNode;
     },
 
-    addChoices: function (choices) {
+    setChoices: function (choices) {
+        this.choicesContainer.node.removeAllChildren();
         // cc.log(this.node.width);
         var btnHeight = ((this.node.height - ((choices.length + 1) * this.btnSpacing)) / choices.length) * 0.9;
         // var btnWidth = this.node.width /2;

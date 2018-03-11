@@ -13,21 +13,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+
         profilePic: {
             default: null,
             type: cc.Sprite
@@ -43,11 +29,15 @@ cc.Class({
             type: cc.Label
         },
 
+        notificationLabel: {
+            default: null,
+            type: cc.Node
+        },
+
         customer: {
             default: null,
             type: Customer
         }
-
         
     },
 
@@ -59,10 +49,10 @@ cc.Class({
 
     },
 
-    init : function (data) {
-        this.customer = new Customer(data);
+    init : function (customer) {
+        this.customer = customer;
         this.nameLabel.string = this.customer.getName();
-        this.lastMsgLabel.string = this.customer.getLastMsg();
+        this.setLastMsg(this.customer.getLastMsg());
 
         // cc.log(this.customer);
         var self = this;
@@ -84,7 +74,20 @@ cc.Class({
 
     setProfilePic: function () {
 
-    }
+    },
 
-    // update (dt) {},
+    update (dt) {
+        let lastMsg = this.customer.getLastMsg();
+        if (!!lastMsg) {
+            this.setLastMsg(lastMsg.getBody());
+        } else {
+            this.setLastMsg("");
+        }
+        if (this.customer.getUnreadMsgNum() != 0) {
+            this.notificationLabel.active = true;
+            this.notificationLabel.getChildByName('number').getComponent(cc.Label).string = this.customer.getUnreadMsgNum();
+        } else {
+            this.notificationLabel.active = false;
+        }
+    },
 });
