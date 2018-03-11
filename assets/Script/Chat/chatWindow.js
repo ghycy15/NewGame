@@ -16,7 +16,7 @@ cc.Class({
         }
     },
 
-    addConversation: function (type, content, userData, scrollToBottom=true) {
+    addConversation: function (type, msg, userData, scrollToBottom=true) {
         let chatSlot = null;
         if (type === "USER") {
             chatSlot = cc.instantiate(this.userChatDialogBoxPrefab);
@@ -25,7 +25,7 @@ cc.Class({
         }
         if (!!chatSlot) {
             this.scrollView.content.addChild(chatSlot);
-            chatSlot.getComponent('chatDialogue').init(content, userData);
+            chatSlot.getComponent('chatDialogue').init(msg, type, userData);
         }
         if (!!scrollToBottom) {
             this.scrollView.scrollToBottom(0.1);

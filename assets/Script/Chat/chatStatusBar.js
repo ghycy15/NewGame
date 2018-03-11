@@ -12,21 +12,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
         customerNameLabel: {
             default: null,
             type: cc.Label
@@ -45,7 +30,7 @@ cc.Class({
         this.goBackContactsBtn.node.on('touchstart', function (event) {
             const onGoBackContactsEvent = new cc.Event.EventCustom('onGoBackContacts', true);
             // cc.log("clicked go back button");
-            onGoBackContactsEvent.setUserData(self.customer);
+            onGoBackContactsEvent.setUserData(this._customer);
             self.goBackContactsBtn.node.dispatchEvent( onGoBackContactsEvent );
         }, this);
     },
@@ -54,8 +39,9 @@ cc.Class({
 
     },
 
-    setName : function (name) {
-        this.customerNameLabel.string = name;
+    setName : function (customer) {
+        this._customer = customer;
+        this.customerNameLabel.string = customer.getName();
     }
 
     // update (dt) {},

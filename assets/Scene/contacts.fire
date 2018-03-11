@@ -260,8 +260,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 640,
-      "height": 96
+      "width": 120,
+      "height": 40
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1021,7 +1021,8 @@
     "currentChatView": null,
     "chatViewPlaceHolder": {
       "__id__": 25
-    }
+    },
+    "contactChatViewMapper": {}
   },
   {
     "__type__": "cc.Canvas",
