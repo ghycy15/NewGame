@@ -1079,6 +1079,9 @@
     },
     "_enabled": true,
     "isAlignOnce": true,
+    "_target": {
+      "__id__": 1
+    },
     "_alignFlags": 9,
     "_left": 155,
     "_right": 0,
@@ -1196,8 +1199,15 @@
       "__id__": 7
     },
     "lastMsgLabel": {
+      "__id__": 31
     },
     "nameLabel": {
+      "__id__": 26
+    },
+    "notificationLabel": {
+      "__id__": 10
+    },
+    "customer": null
   },
   {
     "__type__": "cc.PrefabInfo",
