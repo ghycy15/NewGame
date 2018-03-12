@@ -18,7 +18,6 @@ cc.Class({
     addItemSlot: function (index) {
         let itemSlot = cc.instantiate(this.slotPrefab);
         this.scrollView.content.addChild(itemSlot);
-        console.log(itemSlot);
         itemSlot.getComponent('shopItem').init({
             id: index,
         });

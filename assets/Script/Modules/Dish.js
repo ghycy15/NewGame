@@ -9,6 +9,10 @@ function Dish (data) {
     this._name = data['name'];
     this._ingredients = data['ingredients'];
     this._cookTime = data['cook_time'];
+
+    if (data['start_time']) {
+    	this.start_time = data['start_time'];
+    }
     this.reset();
 }
 
@@ -18,6 +22,10 @@ function Dish (data) {
 Dish.prototype.reset = function () {
    
 };
+
+Dish.prototype.setStartTime = function(start_time) {
+    this.start_time = start_time;
+}
 
 
 Dish.prototype.getID = function () {
@@ -29,10 +37,12 @@ Dish.prototype.getName = function () {
     return this._name;
 };
 
-
-Dish.prototype.getLastMsg = function () {
-    return this._lastMsg;
+Dish.prototype.getIngredients = function () {
+    return this._ingredients;
 };
 
+Dish.prototype.getCookTime = function () {
+    return this._cookTime;
+};
 
 module.exports = Dish;

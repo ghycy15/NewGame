@@ -21,6 +21,7 @@ Game.prototype.reset = function () {
 Game.prototype.init = function() {
     this._customerMap = {};
     this._contactsList = [];
+    this._dishesList = {};
     this.testInit();
 };
 
@@ -40,12 +41,23 @@ Game.prototype.testInit = function() {
     this.addCustomer(c4);
     this.addCustomer(c5);
     this.addCustomer(c6);
+
+    const d1 = new Dish({'name':'蛋糕', 'id':1, cook_time: 10, ingredients: [1, 2, 3]});
+    this.addDish(d1);
 };
 
 Game.prototype.addCustomer = function(customer) {
     this._customerMap[customer.getID()] = customer;
     this._contactsList.push(customer);
 };
+
+Game.prototype.addDish = function(dish) {
+    this._dishesList.push(dish);
+};
+
+Game.prototype.getDishList = function() {
+    return this._dishesList;
+}
 
 // Should sort the customers by the last message timestamp
 Game.prototype.getContactsList = function() {
