@@ -21,7 +21,7 @@ Game.prototype.reset = function () {
 Game.prototype.init = function() {
     this._customerMap = {};
     this._contactsList = [];
-    this._dishesList = {};
+    this._dishesList = [];
     this.testInit();
 };
 
