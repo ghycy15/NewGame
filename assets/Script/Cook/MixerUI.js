@@ -1,12 +1,5 @@
-// Learn cc.Class:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/class/index.html
-// Learn Attribute:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/reference/attributes/index.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
+const Global = require('Global');
+const Game = require('Game');
 
 cc.Class({
     extends: cc.Component,
@@ -27,14 +20,51 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
+        slotPrefab: {
+            default: null,
+            type: cc.Prefab
+        },
+        scrollView: {
+            default: null,
+            type: cc.ScrollView
+        },
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
 
-    start () {
+    init: function (dishes) {
+        this.refreshItems(dishes);
+    },
 
+    addItem: function () {
+        let item = cc.instantiate(this.slotPrefab);
+        this.scrollView.content.addChild(item);
+        return item;
+    },
+
+    refreshItems (items) {
+        if (!items ) {
+            return;   
+        }
+        console.log(items);
+        this.itemSlots = [];
+        const itemIDs = Object.keys(items);
+
+        var self = this;
+        itemIDs.forEach(function(itemID) {
+            self.addItemSlot(itemID, items[itemID]);
+        });
+    },
+
+    addItemSlot: function (index, quantity) {
+        let itemSlot = cc.instantiate(this.slotPrefab);
+        this.scrollView.content.addChild(itemSlot);
+        itemSlot.getComponent('CookItem').init({
+            id: index,
+        });
+        return itemSlot;
     },
 
     show: function () {

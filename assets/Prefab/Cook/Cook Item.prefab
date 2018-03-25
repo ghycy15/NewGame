@@ -302,7 +302,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 60,
-      "height": 30
+      "height": 31
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -482,7 +482,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 229.21,
-      "height": 30
+      "height": 26
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -512,7 +512,7 @@
     "_actualFontSize": 15,
     "_fontSize": 15,
     "_lineHeight": 30,
-    "_enableWrapText": false,
+    "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
@@ -1095,7 +1095,7 @@
     "_actualFontSize": 15,
     "_fontSize": 15,
     "_lineHeight": 30,
-    "_enableWrapText": false,
+    "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
@@ -1282,7 +1282,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 60,
-      "height": 40
+      "height": 31
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -1820,6 +1820,9 @@
     },
     "timeRemaining": {
       "__id__": 43
+    },
+    "cookTime": {
+      "__id__": 32
     },
     "itemIcons": [
       {
