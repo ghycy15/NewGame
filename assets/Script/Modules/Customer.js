@@ -74,7 +74,7 @@ Customer.prototype.loadMore = function() {
         return;
     }
 
-    if (null == this._currentChatState && this._currentChatState < 0) {
+    if (null === this._currentChatState || this._currentChatState < 0) {
         return;
     }
     cc.log(this._currentChatState);

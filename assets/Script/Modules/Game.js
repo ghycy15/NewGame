@@ -54,6 +54,14 @@ Game.prototype.addCustomer = function(customer) {
     this._contactsList.push(customer);
 };
 
+Game.prototype.getTotalUnreadMsgNum = function() {
+    var total = 0;
+    this.getContactsList().forEach(function(contact, index) {
+        total += contact.getUnreadMsgNum();
+    });
+    return total;
+};
+
 Game.prototype.addDish = function(dish) {
 	this._dishesMap[dish.getID()] = dish;
 };
