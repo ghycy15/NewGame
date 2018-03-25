@@ -32,6 +32,11 @@ cc.Class({
             type: cc.Node
         },
 
+        goBackBtn: {
+            default: null,
+            type: cc.Button
+        },
+
         contactChatViewMapper: {
             default: {},
             serializable: true
@@ -91,6 +96,10 @@ cc.Class({
 
     reset : function () {
 
+    },
+
+    gotoHome: function () {
+        cc.director.loadScene("mainScreen");
     },
 
     onContactSelected : function (contact) {

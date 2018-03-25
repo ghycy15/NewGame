@@ -18,6 +18,10 @@ cc.Class({
         },
         fridgeUI: fridgeUI,
         mixerUI: mixerUI,
+        notificationLabel: {
+            default: null,
+            type: cc.Node
+        },
         text: 'Long live LCF!',
         /*homeBtnGroups: {
             default: [],
@@ -49,6 +53,15 @@ cc.Class({
     // called every frame
     update: function (dt) {
         this.goldLabel.getComponent(cc.Label).string = Global.gold;
+
+        // For notification label
+        var totalMsgNum = Global.game.getTotalUnreadMsgNum();
+        if (totalMsgNum != 0) {
+            this.notificationLabel.active = true;
+            this.notificationLabel.getChildByName('number').getComponent(cc.Label).string = totalMsgNum;
+        } else {
+            this.notificationLabel.active = false;
+        }
     },
 
     start: function () {
