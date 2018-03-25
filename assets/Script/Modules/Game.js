@@ -1,6 +1,8 @@
 // Dependencies
 var Customer = require('Customer');
 var Message = require('Message');
+var Dish = require('Dish');
+var chatScript = require('chat1');
 
 /**
  * @class Game
@@ -27,20 +29,14 @@ Game.prototype.init = function() {
 
 Game.prototype.testInit = function() {
     var c1 = new Customer({'name':'小红', 'id':1});
-    var c2 = new Customer({'name':'小a', 'id':2});
-    var c3 = new Customer({'name':'as', 'id':3});
-    var c4 = new Customer({'name':'adaq', 'id':4});
-    var c5 = new Customer({'name':'qwe', 'id':5});
-    var c6 = new Customer({'name':'azxca', 'id':6});
-    c2.addDialogue("test");
-    c2.addDialogue("test1");
-    c2.addDialogue("test2");
+    cc.log(chatScript);
+    c1.init(chatScript.chatScript[1]);
     this.addCustomer(c1);
+
+    var c2 = new Customer({'name':'小方', 'id':2});
+    cc.log(chatScript);
+    c2.init(chatScript.chatScript[2]);
     this.addCustomer(c2);
-    this.addCustomer(c3);
-    this.addCustomer(c4);
-    this.addCustomer(c5);
-    this.addCustomer(c6);
 
     const d1 = new Dish({'name':'蛋糕', 'id':1, cook_time: 10, ingredients: [1, 2, 3]});
     this.addDish(d1);
@@ -57,7 +53,7 @@ Game.prototype.addDish = function(dish) {
 
 Game.prototype.getDishList = function() {
     return this._dishesList;
-}
+};
 
 // Should sort the customers by the last message timestamp
 Game.prototype.getContactsList = function() {

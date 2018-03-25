@@ -63,7 +63,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 640,
+      "width": 750,
       "height": 150
     },
     "_rotationX": 0,
@@ -72,8 +72,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 320,
-      "y": 885
+      "x": 375,
+      "y": 1259
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -120,7 +120,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 640,
+      "width": 750,
       "height": 150
     },
     "_rotationX": 0,
@@ -249,7 +249,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -245,
+      "x": -300,
       "y": 5
     },
     "_skewX": 0,
@@ -375,7 +375,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -200,
+      "x": -255,
       "y": 50
     },
     "_skewX": 0,
@@ -823,7 +823,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -125,
+      "x": -180,
       "y": 35
     },
     "_skewX": 0,
@@ -942,7 +942,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 35,
+      "x": -20,
       "y": -25
     },
     "_skewX": 0,
@@ -990,7 +990,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 200,
+      "width": 300,
       "height": 40
     },
     "_rotationX": 0,
@@ -999,7 +999,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -100,
+      "x": -50,
       "y": 5
     },
     "_skewX": 0,
@@ -1026,10 +1026,10 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_N$string": "最后一句话",
-    "_N$horizontalAlign": 1,
+    "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 0
+    "_N$overflow": 1
   },
   {
     "__type__": "cc.Widget",

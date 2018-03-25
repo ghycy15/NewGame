@@ -1,12 +1,3 @@
-// Learn cc.Class:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/class/index.html
-// Learn Attribute:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/reference/attributes/index.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
 var Customer = require('Customer');
 const Global = require('Global');
 
@@ -14,21 +5,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+
         chatWindow: {
             default: null,
             type: cc.Node
@@ -70,11 +47,9 @@ cc.Class({
         if (!!chatStatusBar) {
             chatStatusBar.setName(customer);
         }
-        customer.getChatHistory().forEach(function(msg) {
-            self.addConversation("CUSTOMER", msg.getBody(), {}, false);
-        });
-        this.addConversation("CUSTOMER", "你好", {}, true, 2, 99, 2);
-        this.setChoices(["好的", "不好"]);
+        // this._readFromMsgQueue();
+        // this.addConversation("CUSTOMER", "你好", {}, true, 2, 99, 2);
+        this.setChoices([]);
     },
 
     postInit : function () {
@@ -86,25 +61,43 @@ cc.Class({
     },
 
     update (dt) {
-
-    },
-
-    // This is the callback for choice selected event
-    onChoiceSelected : function (data) {
-        this.addConversation("USER", data.content, {});
+        this._readFromMsgQueue();
     },
 
     addConversation : function (type, msg, userData, shouldRecordMsg=true, interval=0, repeat=0, delay=0) {
         var self = this;
         this.schedule(function() {
-            if (shouldRecordMsg) {
-                self.customer.addDialogue(msg);
-            }
+            // if (shouldRecordMsg) {
+            //     self.customer.addDialogue(msg);
+            // }
             self.chatWindow.getComponent('chatWindow').addConversation(type, msg, userData);
         }, interval, repeat, delay);
     },
 
     setChoices : function (choices) {
-         this.chatChoices.getComponent('chatChoices').setChoices(choices);
+        if (choices.length == 0) {
+            this.chatChoices.active = false;
+        } else {
+            this.chatChoices.active = true;
+            this.chatChoices.getComponent('chatChoices').setChoices(choices);
+        }
+    },
+
+    // This is the callback for choice selected event
+    onChoiceSelected : function (choice) {
+        this.addConversation("USER", choice.body, {});
+        this.customer.reply(choice);
+        this.setChoices([]);
+    },
+
+    _readFromMsgQueue : function () {
+        if (this.customer.getBufferedMsgQueue().length != 0) {
+            var msg = this.customer.getBufferedMsgQueue().shift();
+            if (msg.type == "MSG") {
+                this.addConversation(msg.from, msg.body, {}, false);
+            } else if (msg.type == "CHOICE") {
+                this.setChoices(msg.choices);
+            }
+        }
     },
 });

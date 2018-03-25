@@ -10,7 +10,7 @@ function Message (data) {
     this._from = data['from'];
     this._to = data['to'];
     this._isMsgRead = data['isMsgRead'];
-
+    this._type = data['type'];
     this.reset();
 }
 
@@ -39,6 +39,10 @@ Message.prototype.getTo = function () {
 
 Message.prototype.isMsgRead = function () {
     return this._isMsgRead;
+};
+
+Message.prototype.getType = function() {
+    return this._type;
 };
 
 module.exports = Message;

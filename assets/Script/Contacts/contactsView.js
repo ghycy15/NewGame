@@ -1,12 +1,3 @@
-// Learn cc.Class:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/class/index.html
-// Learn Attribute:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/reference/attributes/index.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
 var Customer = require('Customer');
 var Game = require('Game');
 const Global = require('Global');
@@ -55,10 +46,6 @@ cc.Class({
 
         // this.chatViewPlaceHolder.width = this.node.width;
         // this.chatViewPlaceHolder.height = this.height;
-        if (!Global.game) {
-            Global.game = new Game();
-            Global.game.init();
-        }
 
         this.node.on('onContactSelected', function (event) {
             self.onContactSelected(event.getUserData());
@@ -106,14 +93,14 @@ cc.Class({
 
     },
 
-    onContactSelected : function (data) {
-        cc.log(data);
-        let chatView = this.contactChatViewMapper[data.getID()];
+    onContactSelected : function (contact) {
+        cc.log(contact);
+        let chatView = this.contactChatViewMapper[contact.getID()];
         if (!!chatView && !this.currentChatView) {
             this._showChatView(chatView);
         } else {
             chatView = cc.instantiate(this.chatViewPrefab);
-            this.contactChatViewMapper[data.getID()] = chatView;
+            this.contactChatViewMapper[contact.getID()] = chatView;
             if (!!chatView && !this.currentChatView) {
 
                 this.chatViewPlaceHolder.x = this.node.width;
@@ -122,16 +109,16 @@ cc.Class({
                 this.chatViewPlaceHolder.addChild(chatView);
 
                 this._showChatView(chatView);
-                chatView.getComponent('chatView').init(data);
+                chatView.getComponent('chatView').init(contact);
             }
         }
         
     },
 
-    onGoBackContacts : function (data) {
+    onGoBackContacts : function (contact) {
         if (!!this.currentChatView) {
             this._hideChatView(this.currentChatView);
-            data.setUnreadMsgNum(0);
+            contact.setUnreadMsgNum(0);
         }
     },
 
@@ -152,7 +139,7 @@ cc.Class({
 
     update (dt) {
         var self = this;
-        if (this._contactsListRefreshInterval > 0.1) {
+        if (this._contactsListRefreshInterval > 0.5) {
             var contactsOrder = Global.game.getContactsOrderMap();
             self.contactContainer.getComponent(cc.ScrollView).content.children.forEach(function(contactSlot) {
                 let id = contactSlot.getComponent('contactSlot').customer.getID();
@@ -161,6 +148,5 @@ cc.Class({
             this._contactsListRefreshInterval = 0;
         }
         this._contactsListRefreshInterval += dt;
-        
     },
 });

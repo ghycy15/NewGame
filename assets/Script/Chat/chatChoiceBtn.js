@@ -23,10 +23,10 @@ cc.Class({
     start () {
     },
 
-    init : function (content) {
+    init : function (choice) {
         // TODO: need to parse the content
-        this.btnLabel.string = content;
-        this.data['content'] = content;
+        this.btnLabel.string = choice.body;
+        this.data = choice;
         var self = this;
         this.node.on('click', function (event) {
             const onChoiceSelectedEvent = new cc.Event.EventCustom('onChoiceSelected', true);
