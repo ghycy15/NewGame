@@ -9,24 +9,31 @@ function Dish (data) {
     this._name = data['name'];
     this._ingredients = data['ingredients'];
     this._cookTime = data['cook_time'];
-
+    if (data['price']) {
+    	this._price = data['price'];
+    }
+    
     if (data['start_time']) {
-    	this.start_time = data['start_time'];
+    	this._startTime = data['start_time'];
     }
     this.reset();
 }
 
-/**
- * @method reset
- */
 Dish.prototype.reset = function () {
    
 };
 
 Dish.prototype.setStartTime = function(start_time) {
     this.start_time = start_time;
-}
+};
 
+Dish.prototype.getStartTime = function() {
+    return this._startTime;
+};
+
+Dish.prototype.getPrice = function() {
+	return this._price;
+};
 
 Dish.prototype.getID = function () {
     return this._id;
