@@ -1,5 +1,7 @@
 const fridgeUI = require('FridgeUI');
+const mixerUI = require('MixerUI');
 const Global = require('Global');
+const Game = require('Game');
 
 const PanelType = cc.Enum({
     Home: -1,
@@ -15,6 +17,7 @@ cc.Class({
             type: cc.Label
         },
         fridgeUI: fridgeUI,
+        mixerUI: mixerUI,
         text: 'Long live LCF!',
         /*homeBtnGroups: {
             default: [],
@@ -36,6 +39,11 @@ cc.Class({
             // Load all user items here
             Global.items = {};
         }
+
+        if (!Global.game) {
+            Global.game = new Game();
+            Global.game.init();
+        }
     },
 
     // called every frame
@@ -45,6 +53,7 @@ cc.Class({
 
     start: function () {
         this.fridgeUI.init(Global.items);
+        this.mixerUI.init(Global.game.getDishesMap());
     },
 
     toggleHomeBtns: function (enable) {

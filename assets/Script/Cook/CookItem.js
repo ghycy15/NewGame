@@ -1,4 +1,5 @@
 const Global = require('Global');
+const Game = require('Game');
 
 cc.Class({
     extends: cc.Component,
@@ -12,6 +13,7 @@ cc.Class({
             type: cc.ProgressBar
         },
         timeRemaining: cc.Label,
+        cookTime: cc.Label,
         itemIcons: {
             default: [],
             type: cc.SpriteFrame
@@ -23,14 +25,15 @@ cc.Class({
 
     // data: {id,iconSF,itemName,itemPrice}
     init: function (data) {
-        let id = data.id;
+        const id = data.id;
+
+        this.dish = Global.game.getDishByID(id);
 
         this.icon.spriteFrame = this.itemIcons[0];
 
-
-        this.itemName.string = this.data[itemName];
-        this.itemIngredient = this.data[id];
-        this.itemPrice.string = this.itemPrices[id];
+        this.itemName.string = this.dish.getName();
+        this.cookTime.string = "制作时间： " + this.dish.getCookTime();
+        //this.itemIngredient.string = ;
         this.id = id;
 
         this.timer = 0;

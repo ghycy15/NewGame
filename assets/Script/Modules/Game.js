@@ -1,6 +1,7 @@
 // Dependencies
 var Customer = require('Customer');
 var Message = require('Message');
+const Dish = require('Dish');
 
 /**
  * @class Game
@@ -21,7 +22,13 @@ Game.prototype.reset = function () {
 Game.prototype.init = function() {
     this._customerMap = {};
     this._contactsList = [];
-    this._dishesList = [];
+    this._dishesMap = {};
+    /* 
+        finishing_time: number,
+        item_id: number,
+    */
+    this._MixingItemList = [];
+    this._dishesInventory = {};
     this.testInit();
 };
 
@@ -42,7 +49,8 @@ Game.prototype.testInit = function() {
     this.addCustomer(c5);
     this.addCustomer(c6);
 
-    const d1 = new Dish({'name':'蛋糕', 'id':1, cook_time: 10, ingredients: [1, 2, 3]});
+    const d1 = new Dish({'name':'蛋糕', 'id':1, 'cook_time': 10, 'ingredients': [1, 2, 3]});
+    //debugger;
     this.addDish(d1);
 };
 
@@ -52,12 +60,28 @@ Game.prototype.addCustomer = function(customer) {
 };
 
 Game.prototype.addDish = function(dish) {
-    this._dishesList.push(dish);
+	this._dishesMap[dish.getID()] = dish;
 };
 
-Game.prototype.getDishList = function() {
-    return this._dishesList;
-}
+Game.prototype.getDishByID = function(number) {
+	return this._dishesMap[number];
+};
+
+Game.prototype.getDishesMap = function() {
+    return this._dishesMap;
+};
+
+Game.prototype.addToDishesInventory = function(dish) {
+	if (!this._dishesInventory[dish.getID()]) {
+		this._dishesInventory[dish.getID()] = 1;
+	} else {
+		this._dishesInventory[dish.getID()] ++;
+	}
+};
+
+Game.prototype.getDishesInventory = function() {
+    return this._dishesInventory;
+};
 
 // Should sort the customers by the last message timestamp
 Game.prototype.getContactsList = function() {
