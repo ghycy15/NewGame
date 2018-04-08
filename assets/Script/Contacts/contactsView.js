@@ -116,9 +116,9 @@ cc.Class({
                 this.chatViewPlaceHolder.width = this.node.width;
                 this.chatViewPlaceHolder.height = this.node.height;
                 this.chatViewPlaceHolder.addChild(chatView);
-
-                this._showChatView(chatView);
                 chatView.getComponent('chatView').init(contact);
+                this._showChatView(chatView);
+                
             }
         }
         
@@ -127,7 +127,6 @@ cc.Class({
     onGoBackContacts : function (contact) {
         if (!!this.currentChatView) {
             this._hideChatView(this.currentChatView);
-            contact.setUnreadMsgNum(0);
         }
     },
 
@@ -137,18 +136,20 @@ cc.Class({
         chatView.runAction(action);
         cc.log(chatView.x + " " + chatView.y);
         this.currentChatView = chatView;
+        this.currentChatView.getComponent('chatView').onDisplay();
     },
 
     _hideChatView : function(chatView) {
         var action = cc.moveBy(0.2, this.node.width,0);
         action.easing(cc.easeIn(3.0));
         chatView.runAction(action);
+        this.currentChatView.getComponent('chatView').onHidden();
         this.currentChatView = null;
     },
 
     update (dt) {
         var self = this;
-        if (this._contactsListRefreshInterval > 0.5 || this._contactsListRefreshInterval == 0) {
+        if (this._contactsListRefreshInterval > 0.3 || this._contactsListRefreshInterval == 0) {
             var contactsOrder = Global.game.getContactsOrderMap();
             self.contactContainer.getComponent(cc.ScrollView).content.children.forEach(function(contactSlot) {
                 let id = contactSlot.getComponent('contactSlot').customer.getID();

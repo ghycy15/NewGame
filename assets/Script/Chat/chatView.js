@@ -32,7 +32,8 @@ cc.Class({
 
     onLoad () {
         // cc.log(this.chatWindow);
-        this.chatChoicesDisplayed = false;
+        this.isChatChoicesDisplayed = false;
+        this.isDisplayed = false;
         var self = this;
         this.node.on('onChoiceSelected', function (event) {
             self.onChoiceSelected(event.getUserData());
@@ -54,7 +55,7 @@ cc.Class({
         cc.log(this.customer.getChatHistory());
             
         this.customer.getChatHistory().forEach(function(msg) {
-            if (msg.isRead()) {
+            if (msg.isReceived()) {
                 self.addConversation(msg.getFrom(), msg.getBody());
             }
         });
@@ -71,8 +72,11 @@ cc.Class({
     },
 
     update (dt) {
-        this._readMsg();
+        this._receiveMsg();
         this._setChoices();
+        if (this.isDisplayed) {
+            this.customer.readMsg();
+        }
     },
 
     addConversation : function (type, msg) {
@@ -93,11 +97,11 @@ cc.Class({
     onChoiceSelected : function (choice) {
         this.customer.replyMsg(choice);
         this.setChoices([]);
-        this.chatChoicesDisplayed = false;
+        this.isChatChoicesDisplayed = false;
     },
 
-    _readMsg : function() {
-        let msg = this.customer.readMsg();
+    _receiveMsg : function() {
+        let msg = this.customer.receiveMsg();
         if (!!msg) {
             this.addConversation(msg.getFrom(), msg.getBody());
         }
@@ -105,9 +109,17 @@ cc.Class({
 
     _setChoices : function () {
         let choices = this.customer.getChatChoices();
-        if (!!choices && !this.chatChoicesDisplayed) {
-            this.chatChoicesDisplayed = true;
+        if (!!choices && !this.isChatChoicesDisplayed) {
+            this.isChatChoicesDisplayed = true;
             this.setChoices(choices);
         }
+    },
+
+    onDisplay : function() {
+        this.isDisplayed = true;
+    },
+
+    onHidden : function() {
+        this.isDisplayed = false;
     },
 });

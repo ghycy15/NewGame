@@ -9,10 +9,11 @@ function Customer (data) {
     this._id = data['id'];
     this._name = data['name'];
     this._chatHistory = [];
-    this._chatHistoryIndex = 0;
+    this._receiveMsgIndex = 0;
+    this._readMsgIndex = 0;
+
     this._chatChoices = null;
 
-    this._bufferedMsg = [];
     this._unreadMsgNum = 0;
     this._currentChatState = 0;
     this._chatScript = null;
@@ -40,16 +41,8 @@ Customer.prototype.getChatHistory = function () {
     return this._chatHistory;
 };
 
-Customer.prototype.getBufferedMsgQueue = function () {
-    return this._bufferedMsg;
-};
-
-Customer.prototype.setUnreadMsgNum = function (n) {
-    this._unreadMsgNum = n;
-};
-
 Customer.prototype.getUnreadMsgNum = function () {
-    return this._unreadMsgNum;
+    return this._chatHistory.length - this._readMsgIndex;
 };
 
 Customer.prototype.isWaitingUser = function () {
@@ -93,7 +86,6 @@ Customer.prototype._loadMore = function() {
             self._currentChatState = tmp.next;
             self._unreadMsgNum += 1;
 
-            self._bufferedMsg.push(tmp);
             self._loadMore();
         }, tmp.delay * 1000);
 
@@ -118,14 +110,18 @@ Customer.prototype.replyMsg = function(choice) {
     this._loadMore();
 };
 
-Customer.prototype.readMsg = function() {
+Customer.prototype.receiveMsg = function() {
     var msg = null;
-    if (this._chatHistoryIndex < this._chatHistory.length) {
-        this._chatHistory[this._chatHistoryIndex].setIsRead(true);
-        msg = this._chatHistory[this._chatHistoryIndex];
-        this._chatHistoryIndex += 1;
+    if (this._receiveMsgIndex < this._chatHistory.length) {
+        this._chatHistory[this._receiveMsgIndex].setIsReceived(true);
+        msg = this._chatHistory[this._receiveMsgIndex];
+        this._receiveMsgIndex += 1;
     }
     return msg;
+};
+
+Customer.prototype.readMsg = function() {
+    this._readMsgIndex = this._chatHistory.length;
 };
 
 Customer.prototype.init = function(chatScript) {

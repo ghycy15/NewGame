@@ -10,6 +10,7 @@ function Message (data) {
     this._from = data['from'];
     this._to = data['to'];
     this._isRead = false;
+    this._isReceived = false;
     this._type = data['type'];
     this.reset();
 }
@@ -41,12 +42,20 @@ Message.prototype.isRead = function () {
     return this._isRead;
 };
 
-Message.prototype.getType = function() {
-    return this._type;
-};
-
 Message.prototype.setIsRead = function(isRead) {
     this._isRead = isRead;
+};
+
+Message.prototype.isReceived = function () {
+    return this._isReceived;
+};
+
+Message.prototype.setIsReceived = function(isReceived) {
+    this._isReceived = isReceived;
+};
+
+Message.prototype.getType = function() {
+    return this._type;
 };
 
 module.exports = Message;
