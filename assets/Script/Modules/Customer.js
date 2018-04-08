@@ -45,10 +45,6 @@ Customer.prototype.getUnreadMsgNum = function () {
     return this._chatHistory.length - this._readMsgIndex;
 };
 
-Customer.prototype.isWaitingUser = function () {
-    return this._isWaitingUser;
-};
-
 Customer.prototype.getChatChoices = function() {
     return this._chatChoices;
 };
@@ -61,10 +57,6 @@ Customer.prototype.getLastMsg = function() {
 };
 
 Customer.prototype._loadMore = function() {
-    if (this._isWaitingUser) {
-        return;
-    }
-
     if (null === this._currentChatState || this._currentChatState < 0) {
         return;
     }
