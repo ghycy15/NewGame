@@ -9,11 +9,14 @@ function Customer (data) {
     this._id = data['id'];
     this._name = data['name'];
     this._chatHistory = [];
+    this._chatHistoryIndex = 0;
+    this._chatChoices = null;
+
     this._bufferedMsg = [];
     this._unreadMsgNum = 0;
     this._currentChatState = 0;
     this._chatScript = null;
-    this._isWaitingUser = false;
+
     this.reset();
 }
 
@@ -53,23 +56,18 @@ Customer.prototype.isWaitingUser = function () {
     return this._isWaitingUser;
 };
 
-
-Customer.prototype.onMsgRead = function(msg) {
-    // this._chatHistory.push(msg);
-    // this.loadMore();
+Customer.prototype.getChatChoices = function() {
+    return this._chatChoices;
 };
 
 Customer.prototype.getLastMsg = function() {
-    // if (this._bufferedMsg.length > 0) {
-    //     return this._bufferedMsg[this._bufferedMsg.length - 1];
-    // }
     if (this._chatHistory.length > 0) {
         return this._chatHistory[this._chatHistory.length - 1];
     }
     return undefined;
 };
 
-Customer.prototype.loadMore = function() {
+Customer.prototype._loadMore = function() {
     if (this._isWaitingUser) {
         return;
     }
@@ -96,34 +94,43 @@ Customer.prototype.loadMore = function() {
             self._unreadMsgNum += 1;
 
             self._bufferedMsg.push(tmp);
-            self.loadMore();
+            self._loadMore();
         }, tmp.delay * 1000);
 
 
     } else if (tmp.type == "CHOICE") {
         //5:{type:"CHOICE", choices:{0:{body:"好的", next:4}, 1:{body:"不好", next:8}}},
-        this._isWaitingUser = true;
-        this._bufferedMsg.push(tmp);
+        this._chatChoices = tmp.choices;
     }
 };
 
-Customer.prototype.reply = function(choice) {
-    this._isWaitingUser = false;
+Customer.prototype.replyMsg = function(choice) {
+    this._chatChoices = null;
     this._currentChatState = choice.next;
     var data = {};
     data['body'] = choice.body;
     data['timestamp'] = (!Date.now ? +new Date() : Date.now());
-    data['from'] = choice.from;
+    data['from'] = "USER";
     data['to'] = "";
 
     var msg = new Message(data);
     this._chatHistory.push(msg);
-    this.loadMore();
+    this._loadMore();
+};
+
+Customer.prototype.readMsg = function() {
+    var msg = null;
+    if (this._chatHistoryIndex < this._chatHistory.length) {
+        this._chatHistory[this._chatHistoryIndex].setIsRead(true);
+        msg = this._chatHistory[this._chatHistoryIndex];
+        this._chatHistoryIndex += 1;
+    }
+    return msg;
 };
 
 Customer.prototype.init = function(chatScript) {
     this._chatScript = chatScript;
-    this.loadMore();
+    this._loadMore();
 };
 
 module.exports = Customer;

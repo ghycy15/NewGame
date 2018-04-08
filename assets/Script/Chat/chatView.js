@@ -31,7 +31,8 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        cc.log(this.chatWindow);
+        // cc.log(this.chatWindow);
+        this.chatChoicesDisplayed = false;
         var self = this;
         this.node.on('onChoiceSelected', function (event) {
             self.onChoiceSelected(event.getUserData());
@@ -43,12 +44,21 @@ cc.Class({
         this.customer = customer;
         var customerName = customer.getName();
 
+        // init chat status bar
         let chatStatusBar = this.chatStatusBar.getComponent('chatStatusBar');
         if (!!chatStatusBar) {
             chatStatusBar.setName(customer);
         }
-        // this._readFromMsgQueue();
-        // this.addConversation("CUSTOMER", "你好", {}, true, 2, 99, 2);
+
+        // init the history messages
+        cc.log(this.customer.getChatHistory());
+            
+        this.customer.getChatHistory().forEach(function(msg) {
+            if (msg.isRead()) {
+                self.addConversation(msg.getFrom(), msg.getBody());
+            }
+        });
+
         this.setChoices([]);
     },
 
@@ -61,17 +71,13 @@ cc.Class({
     },
 
     update (dt) {
-        this._readFromMsgQueue();
+        this._readMsg();
+        this._setChoices();
     },
 
-    addConversation : function (type, msg, userData, shouldRecordMsg=true, interval=0, repeat=0, delay=0) {
+    addConversation : function (type, msg) {
         var self = this;
-        this.schedule(function() {
-            // if (shouldRecordMsg) {
-            //     self.customer.addDialogue(msg);
-            // }
-            self.chatWindow.getComponent('chatWindow').addConversation(type, msg, userData);
-        }, interval, repeat, delay);
+        self.chatWindow.getComponent('chatWindow').addConversation(type, msg, {});
     },
 
     setChoices : function (choices) {
@@ -85,19 +91,23 @@ cc.Class({
 
     // This is the callback for choice selected event
     onChoiceSelected : function (choice) {
-        this.addConversation("USER", choice.body, {});
-        this.customer.reply(choice);
+        this.customer.replyMsg(choice);
         this.setChoices([]);
+        this.chatChoicesDisplayed = false;
     },
 
-    _readFromMsgQueue : function () {
-        if (this.customer.getBufferedMsgQueue().length != 0) {
-            var msg = this.customer.getBufferedMsgQueue().shift();
-            if (msg.type == "MSG") {
-                this.addConversation(msg.from, msg.body, {}, false);
-            } else if (msg.type == "CHOICE") {
-                this.setChoices(msg.choices);
-            }
+    _readMsg : function() {
+        let msg = this.customer.readMsg();
+        if (!!msg) {
+            this.addConversation(msg.getFrom(), msg.getBody());
+        }
+    },
+
+    _setChoices : function () {
+        let choices = this.customer.getChatChoices();
+        if (!!choices && !this.chatChoicesDisplayed) {
+            this.chatChoicesDisplayed = true;
+            this.setChoices(choices);
         }
     },
 });

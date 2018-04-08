@@ -37,15 +37,10 @@ cc.Class({
     // onLoad () {},
 
     start () {
-        //for (let i = 0; i < this.totalCount; i++) {
-        //    this.addConversation("USER", tmp[i%5], {});
-        //    this.addConversation("CUSTOMER", tmp[i%5], {});
-        //}
 
     },
 
     update (dt) {
-    //cc.DelayTime(1);
-      //  this.addConversation("CUSTOMER", tmp[i%5], {});
+
     },
 });

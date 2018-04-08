@@ -41,6 +41,7 @@ cc.Class({
     },
 
     init : function (customer) {
+        this._contactSlotRefreshInterval = 0;
         this.customer = customer;
         this.nameLabel.string = this.customer.getName();
         this.setLastMsg(this.customer.getLastMsg());
@@ -68,17 +69,25 @@ cc.Class({
     },
 
     update (dt) {
-        let lastMsg = this.customer.getLastMsg();
-        if (!!lastMsg) {
-            this.setLastMsg(lastMsg.getBody());
-        } else {
-            this.setLastMsg("");
+
+        var self = this;
+        if (this._contactSlotRefreshInterval > 0.5 || this._contactSlotRefreshInterval == 0) {
+            let lastMsg = this.customer.getLastMsg();
+            if (!!lastMsg) {
+                this.setLastMsg(lastMsg.getBody());
+            } else {
+                this.setLastMsg("");
+            }
+            if (this.customer.getUnreadMsgNum() != 0) {
+                this.notificationLabel.active = true;
+                this.notificationLabel.getChildByName('number').getComponent(cc.Label).string = this.customer.getUnreadMsgNum();
+            } else {
+                this.notificationLabel.active = false;
+            }
+            this._contactSlotRefreshInterval = 0;
         }
-        if (this.customer.getUnreadMsgNum() != 0) {
-            this.notificationLabel.active = true;
-            this.notificationLabel.getChildByName('number').getComponent(cc.Label).string = this.customer.getUnreadMsgNum();
-        } else {
-            this.notificationLabel.active = false;
-        }
+        this._contactSlotRefreshInterval += dt;
+
+       
     },
 });

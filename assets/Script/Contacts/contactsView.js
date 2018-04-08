@@ -148,7 +148,7 @@ cc.Class({
 
     update (dt) {
         var self = this;
-        if (this._contactsListRefreshInterval > 0.5) {
+        if (this._contactsListRefreshInterval > 0.5 || this._contactsListRefreshInterval == 0) {
             var contactsOrder = Global.game.getContactsOrderMap();
             self.contactContainer.getComponent(cc.ScrollView).content.children.forEach(function(contactSlot) {
                 let id = contactSlot.getComponent('contactSlot').customer.getID();

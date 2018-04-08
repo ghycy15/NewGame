@@ -48,7 +48,6 @@ cc.Class({
     },
 
     update (dt) {
-    //cc.DelayTime(1);
-      //  this.addConversation("CUSTOMER", tmp[i%5], {});
+
     },
 });

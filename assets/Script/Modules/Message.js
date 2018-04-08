@@ -9,7 +9,7 @@ function Message (data) {
     this._timestamp = data['timestamp'];
     this._from = data['from'];
     this._to = data['to'];
-    this._isMsgRead = data['isMsgRead'];
+    this._isRead = false;
     this._type = data['type'];
     this.reset();
 }
@@ -37,12 +37,16 @@ Message.prototype.getTo = function () {
     return this._to;
 };
 
-Message.prototype.isMsgRead = function () {
-    return this._isMsgRead;
+Message.prototype.isRead = function () {
+    return this._isRead;
 };
 
 Message.prototype.getType = function() {
     return this._type;
+};
+
+Message.prototype.setIsRead = function(isRead) {
+    this._isRead = isRead;
 };
 
 module.exports = Message;
