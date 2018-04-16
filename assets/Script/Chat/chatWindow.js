@@ -28,6 +28,14 @@ cc.Class({
             chatSlot.getComponent('chatDialogue').init(msg, type, userData);
         }
         if (!!scrollToBottom) {
+            this.scrollToBottom(0.1);
+        }
+    },
+
+
+    scrollToBottom: function() {
+        cc.log(this.scrollView.getMaxScrollOffset().y );
+        if (this.scrollView.getMaxScrollOffset().y > 0) {
             this.scrollView.scrollToBottom(0.1);
         }
     },

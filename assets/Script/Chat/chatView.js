@@ -61,6 +61,7 @@ cc.Class({
         });
 
         this.setChoices([]);
+        this.postInit();
     },
 
     postInit : function () {
@@ -68,7 +69,11 @@ cc.Class({
     },
 
     start () {
-
+        // var self = this;
+        // setTimeout(function(){
+        //     self.chatWindow.getComponent('chatWindow').scrollToBottom();
+        // }, 100);
+        
     },
 
     update (dt) {
@@ -116,6 +121,7 @@ cc.Class({
     },
 
     onDisplay : function() {
+        this.chatWindow.getComponent('chatWindow').scrollToBottom();
         this.isDisplayed = true;
     },
 
