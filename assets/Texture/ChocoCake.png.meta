@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "c5c9e07a-b419-45ac-a24a-04bd9b5cce36",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "ChocoCake": {
+      "ver": "1.0.3",
+      "uuid": "54d76af6-5dff-4d4e-8d3b-69ace4c7e32b",
+      "rawTextureUuid": "c5c9e07a-b419-45ac-a24a-04bd9b5cce36",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 6,
+      "offsetY": 11.5,
+      "trimX": 19,
+      "trimY": 10,
+      "width": 474,
+      "height": 457,
+      "rawWidth": 500,
+      "rawHeight": 500,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -114,8 +114,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 59,
-      "height": 59
+      "width": 60,
+      "height": 60
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -123,7 +123,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -297,
+      "x": -285,
       "y": 2
     },
     "_skewX": 0,
@@ -142,10 +142,10 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "625ca6c8-761a-43ae-836e-9dd5a81297e7"
+      "__uuid__": "54d76af6-5dff-4d4e-8d3b-69ace4c7e32b"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -170,7 +170,7 @@
     "isAlignOnce": true,
     "_target": null,
     "_alignFlags": 8,
-    "_left": 38.5,
+    "_left": 50,
     "_right": 0,
     "_top": 0,
     "_bottom": 0,
@@ -1826,7 +1826,7 @@
     },
     "itemIcons": [
       {
-        "__uuid__": "625ca6c8-761a-43ae-836e-9dd5a81297e7"
+        "__uuid__": "0d5ffde8-f673-4fa9-bb60-f36210a4b139"
       }
     ],
     "preMakeSection": {
